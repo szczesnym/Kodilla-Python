@@ -17,5 +17,5 @@ def build_bridge2(target, chunk):
         return False
 
 
-print(build_bridge(80, 7))
-print(build_bridge2(80, 7))
+print(build_bridge(20, 2))
+print(build_bridge2(18, 2))
