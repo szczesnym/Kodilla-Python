@@ -10,7 +10,7 @@ class Library:
     library = []
 
     def load_data(self, file_name, typ):
-        return_list =[]
+        return_list = []
         csv.register_dialect('excel_file', delimiter=';', quoting=csv.QUOTE_NONE)
         if typ == 'series':
             fieldnames = ['episode_no', 'series', 'title', 'year', 'season', 'genre']
@@ -20,15 +20,14 @@ class Library:
                     temp_series = Series(title=row['title'], release_year=row['year'], genre=row['genre'],
                                          season=row['season'], episode_no=row['episode_no'], serie_title=row['series'])
                     self.library.append(temp_series)
-                    print(row)
+                    print(f'Episode red from file {row}')
         elif typ == 'movies':
             fieldnames = ['title', 'year', 'genre']
             with open(file_name, newline='') as csv_file:
                 reader = csv.DictReader(csv_file, dialect='excel_file', fieldnames=fieldnames)
                 for row in reader:
-                    #print(row)
+                    print(f'Movie red from file {row}')
                     temp_movie = Movie(title=row['title'], release_year=row['year'], genre=row['genre'])
-                    #print(type(temp_movie))
                     self.library.append(temp_movie)
 
     def get_movies(self):
@@ -49,7 +48,7 @@ class Library:
         print(f'Views AFTER increase:{self.library[item_no].display_count}')
 
     def top_titles(self, top_count):
-        return [item for item in sorted(self.library, key=lambda item:item.display_count, reverse=True)][:top_count]
+        return [item for item in sorted(self.library, key=lambda item: item.display_count, reverse=True)][:top_count]
 
     def generate_serie_season(self, title, year, genre, season_number, no_of_episodes):
         fake = Faker()
@@ -58,3 +57,7 @@ class Library:
             self.library.append(Series(episode_no=i, season=season_number, title=fake.catch_phrase(), release_year=year,
                                        genre=genre, serie_title=title))
 
+    def get_number_of_episodes(self, serie_title):
+        filtered_episodes = filter(lambda item: isinstance(item, Series) and
+                                                item.serie_title == serie_title, self.library)
+        return len(list(filtered_episodes))

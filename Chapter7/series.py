@@ -18,3 +18,5 @@ class Series(Movie):
     def __str__(self):
         return f'{self.title} S{str(format_number(self.season))}E{str(format_number(self.episode_no))}'
 
+
+
