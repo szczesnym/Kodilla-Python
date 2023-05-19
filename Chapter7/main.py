@@ -1,7 +1,4 @@
 from library import Library
-#from series import Series
-#from movie import Movie
-from random import randrange
 
 
 def repeat(count, func, *args):
